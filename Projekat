@@ -1,0 +1,79 @@
+#include <stdio.h>
+#include <stdbool.h>
+int main()
+{
+int tablesize;
+scanf("%d", &tablesize);
+char table[tablesize][tablesize];
+int gamelength = tablesize*tablesize;
+int printtablex = 0;
+int printtabley = 0;
+int cleartablex = 0;
+int cleartabley = 0;
+
+int inx;
+int iny;
+
+bool played = false;
+bool turn = true; //true = x false = 0
+void printdatable(int printtablex, int printtabley, int cleartablex, int cleartabley, int tablesize, char table[][tablesize]);
+
+for(cleartabley = 0; cleartabley <= tablesize; cleartabley++)
+{
+	for(cleartablex = 0; cleartablex <= tablesize; cleartablex++)
+	{
+		table[cleartablex][cleartabley] = 48 + cleartablex;
+	}
+}
+
+//begining -------------------------------------------------------------------------------------------------------
+for(int loop = 0; loop <= gamelength; loop++)
+{
+	printdatable(printtablex, printtabley, cleartablex, cleartabley, tablesize, table);
+	
+	if(played == false && turn == true)
+	{
+	printf("\n(x,y) X's play: ");
+	scanf("%d", &inx);
+	scanf("%d", &iny);
+	table[inx][iny] = 88;
+	played = true;
+	turn = false;
+	}
+	
+	if(played == false && turn == false)
+	{
+	printf("\n(x,y) O's play: ");
+	scanf("%d", &inx);
+	scanf("%d", &iny);
+	table[inx][iny] = 79;
+	played = true;
+	turn = true;
+	}
+	played = false;
+}
+
+return 0;
+}
+
+
+void printdatable(int printtablex, int printtabley, int cleartablex, int cleartabley, int tablesize, char table[][tablesize])
+{
+for(printtablex = 0; printtablex < tablesize; printtablex++)
+	{
+		if(printtablex % 2 != 0)
+			printf("---");
+		if(printtablex % 2 == 0)
+			printf("   ");
+		for(printtabley = 0; printtabley < tablesize; printtabley++)
+		{
+			if(printtablex % 2 != 0)
+				printf("+---");
+			if(printtablex % 2 == 0)
+				printf("| %c ", table[printtablex][printtabley]);
+		
+		
+		}
+		printf("\n");
+	}
+}
